@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffeen_Landing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            background: #FFFCF8;
+            color: #726A55;
+        }
+
+        /* 네비게이션 */
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 50px;
+            font-size: 14px;
+        }
+
+        .nav-right a {
+            color: #ABB6C3;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-right a:hover {
+            color: #726A55;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 60px;
+            scroll-snap-align: start;
+        }
+
+        /* 히어로 */
+        .hero {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 120px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -3px;
+            line-height: 1;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #ABB6C3;
+            letter-spacing: 1px;
+            margin-bottom: 60px;
+        }
+
+        .hero-btn {
+            padding: 18px 60px;
+            background: #ABB6C3;
+            color: #FFFCF8;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(171, 182, 195, 0.3);
+            background: #726A55;
+        }
+
+        /* 스크롤 다운 버튼 */
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: #ABB6C3;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            transition: background 0.3s;
+        }
+
+        .scroll-down:hover {
+            background: #726A55;
+        }
+
+        .scroll-down svg {
+            width: 24px;
+            height: 24px;
+            color: #FFFCF8;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            50% {transform: translateX(-50%) translateY(-15px);}
+        }
+
+        /* 카드 그리드 */
+        .masonry {
+            background: #D4DDE6;
+        }
+
+        .masonry-container {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .masonry-grid {
+            column-count: 4;
+            column-gap: 20px;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .masonry-item img,
+        .masonry-item video {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .masonry-item:hover img,
+        .masonry-item:hover video {
+            transform: scale(1.05);
+        }
+
+        .masonry-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 20px;
+            background: linear-gradient(to top, rgba(114, 106, 85, 0.9), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .masonry-item:hover .masonry-overlay {
+            opacity: 1;
+        }
+
+        .masonry-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFCF8;
+        }
+
+        /* 텍스트*/
+        .text-content {
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .text-content h2 {
+            font-size: 72px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            line-height: 1.2;
+        }
+
+        .text-content p {
+            font-size: 20px;
+            line-height: 1.8;
+            color: #ABB6C3;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 80px;
+            }
+            .masonry-grid {
+                column-count: 3;
+            }
+            .text-content h2 {
+                font-size: 56px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+            section {
+                padding: 0 30px;
+            }
+            .hero h1 {
+                font-size: 48px;
+            }
+            .masonry-grid {
+                column-count: 2;
+            }
+            .text-content h2 {
+                font-size: 40px;
+            }
+            .nav-logo {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 -->
+    <nav>
+        <div class="nav-left">
+            <img src="images/15_logo.png" alt="Coffeen Logo" class="nav-logo">
+            <div class="logo">COFFEEN</div>
+        </div>
+        <div class="nav-right">
+            <a href="#explore">Explore</a>
+            <a href="#login">Login</a>
+            <a href="#signip">Sign-up</a>
+        </div>
+    </nav>
+
+    <!-- 상단 로그인 -->
+    <section class="hero">
+        <h1>오늘의<br>카페를<br>모아보다</h1>
+        <p>FIND AND SHARE COZY CAFE'S AROUND YOUR CITY</p>
+        <button class="hero-btn">Sign-up Now</button>
+        
+        <!-- 스크롤 다운 버튼 -->
+        <button class="scroll-down" onclick="document.getElementById('explore').scrollIntoView({behavior: 'smooth'})">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+        </button>
+    </section>
+
+    <!-- 카드 그리드 -->
+    <section id="explore" class="masonry">
+        <div class="masonry-container">
+            <div class="masonry-grid">
+                <div class="masonry-item">
+                    <img src="images/15_cof1.jpg" alt="cafe">
+                    <div class="masonry-overlay">
+                        <div class="masonry-title">서교동 카페</div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <img src="images/15_cof2.jpg" alt="cafe">
+                    <div class="masonry-overlay">
+                        <div class="masonry-title">연남동 카페</div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <img src="images/15_cof3.jpg" alt="cafe">
+                    <div class="masonry-overlay">
+                        <div class="masonry-title">성수동 카페</div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <img src="images/15_cof5.jpg" alt="cafe">
+                    <div class="masonry-overlay">
+                        <div class="masonry-title">이촌동 카페</div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <img src="images/15_cof6.jpg" alt="cafe">
+                    <div class="masonry-overlay">
+                        <div class="masonry-title">한남동 카페</div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <img src="images/15_cof7.jpg" alt="cafe">
+                    <div class="masonry-overlay">
+                        <div class="masonry-title">경리단길</div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <img src="images/15_cof9.jpg" alt="cafe">
+                    <div class="masonry-overlay">
+                        <div class="masonry-title">망원동 카페</div>
+                    </div>
+                </div>
+                <div class="masonry-item">
+                    <video autoplay loop muted playsinline>
+                        <source src="images/15_cof10.MP4" type="video/mp4">
+                    </video>
+                    <div class="masonry-overlay">
+                        <div class="masonry-title">서촌 카페</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 홍보 -->
+    <section id="about" class="text-section">
+        <div class="text-content">
+            <h2>당신만의<br>카페 이야기를<br>남기세요</h2>
+            <p>매일 마주하는 일상 속에서 특별한 순간을 만들어주는 카페. 그 순간을 기록하고 공유하며, 새로운 카페를 발견하세요.</p>
+        </div>
+    </section>
+
+</body>
+</html>

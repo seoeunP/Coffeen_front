@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffeen_Home</title>
+    <link rel="stylesheet" href="15_coffeen_menustyle.css">
+    
+    <style>
+        body {
+            margin-left: 100px;
+            background-color: #FFFCF8;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .main {
+            padding: 40px 0;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        /* 헤더 & 검색 */
+        .header {
+            padding: 16px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .header-inner {
+            display: flex;
+            align-items: center;
+            margin: 0 auto;
+        }
+        
+        .search-box {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 55px;
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 30px;
+            font-size: 15px;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            border-color: #ABB6C3;
+        }
+        
+        /* 배너 */
+        .banner-container {
+            position: relative;
+            margin: 0 auto 60px;
+        }
+        
+        .banner-container img {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+        }
+        
+        .banner-text h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .banner-text p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        /* 섹션 제목 */
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 40px auto 25px;
+            color: #726A55;
+            max-width: 1100px;
+        }
+        
+        /* 카드 그리드 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin: 0 auto 60px;
+        }
+        
+        .card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            height: 200px;
+        }
+        
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .region-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .region-name {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* 분위기별 카페 그리드 */
+        .masonry-grid {
+            column-count: 4;
+            column-gap: 24px;
+            margin: 0 auto;
+        }
+        
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        
+        .masonry-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s;
+        }
+        
+        .masonry-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .masonry-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 20px;
+            background: linear-gradient(to top, rgba(114, 106, 85, 0.9), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .masonry-item:hover .masonry-overlay {
+            opacity: 1;
+        }
+
+        .masonry-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFFCF8;
+        }
+        
+        /* 반응형 */
+        @media (min-width: 1440px) {
+            body { margin-left: 130px; }
+        }
+
+        @media (max-width: 1024px) {
+            .card-grid { grid-template-columns: repeat(3, 1fr); }
+            .masonry-grid { column-count: 3; }
+        }
+
+        @media (max-width: 768px) {
+            .main { padding: 20px 30px; }
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+            .masonry-grid { column-count: 2; }
+            .search-input {
+                padding: 12px 16px 12px 45px;
+                font-size: 14px;
+            }
+            .banner-container img { height: 250px; }
+        }
+    </style>
+</head>  
+  
+<body>
+    <!-- 사이드바 -->
+    <div class="sidebar">
+        <div class="top-section">
+            <img src="images/15_logo.png" alt="logo" class="logo"/>
+            <div class="middle-button">
+                <a href="#"><img src="images/15_bar_home.png" alt="home" /></a>
+                <a href="#"><img src="images/15_bar_plus.png" alt="add" /></a>
+                <a href="#"><img src="images/15_bar_alert.png" alt="alert" /></a>
+                <a href="#"><img src="images/15_bar_person.png" alt="user" /></a>
+            </div>
+        </div>
+        <div class="setting-button">
+            <a href="#"><img src="images/15_bar_setting.png" alt="setting" /></a>
+        </div>
+    </div>
+
+    <!-- 메인 -->
+    <div class="main">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-inner">
+                <div class="search-box">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Search">
+                </div>
+            </div>
+        </header>
+
+        <!-- 배너 -->
+        <div class="banner-container">
+            <img src="images/15_cof4.jpg" alt="메인 카페">
+            <div class="banner-text">
+                <h1>오늘의 온도를 담은 공간</h1>
+                <p>Where the warmth of today stays</p>
+            </div>
+        </div>
+
+        <!-- 지역 추천 카페 -->
+        <h2>● 지역 추천 카페</h2>
+        <div class="card-grid">
+            <div class="card">
+                <img src="images/15_cof2.jpg" alt="마포">
+                <div class="region-overlay">
+                    <span class="region-name">#마포</span>
+                </div>
+            </div>
+            <div class="card">
+                <img src="images/15_cof7.jpg" alt="잠실">
+                <div class="region-overlay">
+                    <span class="region-name">#잠실</span>
+                </div>
+            </div>
+            <div class="card">
+                <img src="images/15_cof1.jpg" alt="성수">
+                <div class="region-overlay">
+                    <span class="region-name">#성수</span>
+                </div>
+            </div>
+            <div class="card">
+                <img src="images/15_cof6.jpg" alt="안국">
+                <div class="region-overlay">
+                    <span class="region-name">#안국</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 사용자가 좋아하는 분위기의 카페 -->
+        <h2>● 사용자가 좋아하는 분위기의 카페</h2>
+        <div class="masonry-grid">
+            <div class="masonry-item">
+                <img src="images/15_cof공부.jpg" alt="카페_공부">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#공부</div>
+                </div>
+            </div>
+            <div class="masonry-item">
+                <img src="images/15_cof7.jpg" alt="카페7">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#감성</div>
+                </div>
+            </div>
+            <div class="masonry-item">
+                <img src="images/15_cof아늑한.jpg" alt="카페_아늑한">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#아늑한</div>
+                </div>
+            </div>
+            <div class="masonry-item">
+                <img src="images/15_cof1.jpg" alt="카페1">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#모던</div>
+                </div>
+            </div>
+            <div class="masonry-item">
+                <img src="images/15_cof루프탑.jpg" alt="카페_루프탑">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#루프탑</div>
+                </div>
+            </div>
+            <div class="masonry-item">
+                <img src="images/15_cof7.jpg" alt="카페3">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#맛집</div>
+                </div>
+            </div>
+            <div class="masonry-item">
+                <img src="images/15_cof3.jpg" alt="카페2">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#베이커리</div>
+                </div>
+            </div>
+            <div class="masonry-item">
+                <img src="images/15_cof빈티지.jpg" alt="카페_빈티지">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#빈티지</div>
+                </div>
+            </div>
+            <div class="masonry-item">
+                <img src="images/15_cof5.jpg" alt="카페5">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#힐링</div>
+                </div>
+            </div>
+            <div class="masonry-item">
+                <img src="images/15_cof6.jpg" alt="카페6">
+                <div class="masonry-overlay">
+                    <div class="masonry-title">#자연</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
